@@ -1,0 +1,61 @@
+#include <iostream>
+#include <stack>
+#include <vector>
+using namespace std;
+class vertice{
+    public:
+    int val;
+    vector<vertice*> next;
+    vertice(int v):val(v){}
+};
+class graph{
+    public:
+    int visit[7]={0,0,0,0,0,0,0};
+    vertice* one;
+    stack<int> out;
+    vector<int> path;
+    graph(){};
+    void topoSort(vertice* start);
+    void printStack();
+};
+void graph::topoSort(vertice* start){
+//    cout<<start->val<<endl;
+//    cout<<visit[start->val]<<endl;
+    if(visit[start->val]==0){
+         visit[start->val]=1;
+         out.push(start->val);
+         
+    
+     vector<vertice*>::iterator it;     
+    for(it=(start->next).begin();it!=(start->next).end();it++){
+        topoSort(*it);
+    } 
+    }
+}
+void graph::printStack(){
+    while(!out.empty()){
+        cout<<out.top()<<endl;
+        out.pop();
+    }
+}
+    
+
+int main()
+{
+    graph* g=new graph();
+    
+    vertice* a=new vertice(6);
+    vertice* b=new vertice(5);
+    vertice* c=new vertice(4);
+    vertice* d=new vertice(2);
+    
+    (a->next).push_back(b);
+    (a->next).push_back(c);
+    (b->next).push_back(d);
+    
+    g->one=a;
+    g->topoSort(a);
+    g->printStack();
+    
+    return 0;
+}

@@ -1,0 +1,15 @@
+Initialization list:
+
+com.myfirstproject.firestoreapp
+
+2 147 483 648 
+ 
+2147483648
+
+Big Data, including the Hadoop Ecosystem, NoSQL approaches and Cloud Data Management.
+Data warehousing and BI (incl. SQL / Data Modelling, Data Integration, Data Governance)
+Thorough understanding of the capabilities of commercial Apache Hadoop distributions such as e.g. Hortonworks, Cloudera, or MapR
+Experience in estimating, planning and managing data integration aspects of implementation projects. 
+Experience with technologies such as: Spark, Sqoop, Pig, Hive, Kafka, Hibench, YCSB, Informatica, Ab Inititio, Talend, etc     
+
+Experience with tools such as Hadoop, Alteryx, QlikView, Tableau, Apache, Spark, Caffe or other deep-learning libraries              

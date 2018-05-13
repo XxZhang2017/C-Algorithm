@@ -1,0 +1,27 @@
+void improveMerge(int arr[],int left,int right);
+{   
+    int s1=left;
+int s2=right;
+int mid=(right-left)/2+left;
+int* mem=new int[right-left+1];
+for(int i=left;i<=mid;i++){
+   mem[i]=arr[s1++];
+}
+for(int j=mid+1,int k=right;j<=right;j++,k--){
+    men[mid]=arr[k];
+}
+while(left<right){
+   if(men[s1]>men[s2])arr[s1++]=men[s1++];
+   else arr[s1++]=men[s2--];
+}
+}
+void partition(int arr[],left,right){
+  if(left>right) return;
+  int mid=(right-left)/2+left;
+  partition(arr,left,mid)
+}
+void mergeSort(arr,left,right){
+sort(arr,left,mid);
+  sort(arr,mid+1,right);
+improveMerge(arr,left,right);
+}

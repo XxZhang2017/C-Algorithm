@@ -1,0 +1,22 @@
+
+//the same question
+int CountInternal(treeNode* p){
+   }
+
+//something wrong with the question;
+//nodeptr& *head;
+//reference does not have pointer;
+bool remove_node(nodeptr* &head, int x){
+     nodeptr* pre=head;
+     nodeptr* cur=head;
+    while(cur){
+      if(cur->val==x){
+           pre->next=cur->next;
+           delete cur;
+           return true;
+      }
+      pre=cur;
+      cur=cur->next;
+    }
+   return false;
+}

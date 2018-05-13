@@ -1,0 +1,41 @@
+#include <iostream>
+
+using namespace std;
+#define M 10
+struct linklist
+{
+    linklist *next;
+    int value;
+    linklist(int v,linklist *n):value(v),next(n){}
+    ~linklist() {if (next) delete next;}
+};
+void bSort(int arr[], int n, int K){
+   linklist* bucket=new linklist[n];
+   
+   for(int i=0;i<n;i++){
+       int k=arr[i]/M;
+       bucket[k]=new linklist(arr[i],bucket[k]);
+   }
+   int B[n]=new int[n];
+   for(int i=0,Bindex=0;i<M-1;i++){
+       for(Bstart=Bindex;bucket[i];bucket[i]=bucket[i]->next){ //Note: use *p to loop
+                                                               //don't use bucket[k]
+           B[Bindext]=bucket[i]->value;
+           Bindext++;
+           qsort(B,Bstart,Bindex);
+           Bstart=Bindex+1;
+       }
+       
+   }
+   for(int i=0;i<n;i++){
+       arr[i]=B[i];
+   }
+}
+
+int main()
+{
+    int A[10]={12,32,12,43,88,47,39,20,90,8};
+    
+
+    return 0;
+}

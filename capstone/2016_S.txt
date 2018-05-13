@@ -1,0 +1,69 @@
+
+bool countNode(Node* root){
+if(!root)return true;
+return countNode(root->left)&&!countNode(root->right)||
+       !countNode(root->left)&&countNode(root->right)||;
+}
+
+void merge(int a[], int n, int b[], int m){
+int* c=new int[n+m];
+int i=0,k=0,j=0;
+while(i<n && j<m){
+   if(a[i]<b[j]){
+      c[k]=a[i];
+      ++k;
+      ++i;
+   }else if(b[i]<a[j]){
+      c[k]=b[i];
+      ++k;
+      ++j;
+   }
+}
+while(i<n){
+  c[k++]=a[i++];
+}
+while(i<n){
+  c[k++]=b[j++];
+}
+}
+}
+
+class Node{
+public:
+int val;
+Node* next;
+Node::Node(int v):val(v){};//list has two value;
+}
+
+Node* entry_;
+Node* dfs(Node* entry, Vertice* start, int visit[]){
+
+if(AllVisit()) return entry_;
+
+if(start && !visit[start.v]){
+entry=new Node(start.v);
+visit[start.v]=1;
+   while(start->next){
+      dfs(entry->next,start->connect,visit);
+}
+
+}
+}
+
+
+O(n+m)
+
+//adj matrix:
+O(n^2)
+Node* dfs(Node* entry, int matrix[][],int rowT, int colT){
+int row=0,col=0;      
+for(;row<rowT;row++){
+    for(;col<colT;col++){
+        if(matrix[rowT][colT] && rowT!=colT){
+              entry=new Node(matrix[rowT][colT]);
+              entry=entry->next;
+        }
+    }
+  }
+}
+

@@ -1,0 +1,45 @@
+#include <iostream>
+
+using namespace std;
+template <class Record> 
+void BucketSort(Record Array[], int n, int max) {
+    int *count = new int[max]; int i;
+    Record TempArray[n];
+    
+    for (i = 0; i < n; i++)
+        TempArray[i] = Array[i]; 
+    for (i = 0; i < max; i++)
+        count[i] = 0;
+    for (i = 0; i < n; i++)
+        count[Array[i]]++;
+    for (i = 1; i < max; i++){
+        count[i] = count[i-1]+count [i]; 
+        cout<<"count"<<" "<<i<<" ";
+        cout<<count[i]<<" ";
+    }
+    cout<<endl;
+        
+    for (i = n-1; i >= 0; i--){
+        cout<<"TempArray[i]"<<" ";
+        cout<<TempArray[i]<<" ";
+        cout<<"count[TempArray[i]]"<<" ";
+        cout<<count[TempArray[i]]<<" ";
+        cout<<"Array[--count[TempArray[i]]]"<<" ";
+        cout<<TempArray[i];
+        
+        Array[--count[TempArray[i]]] = TempArray[i];  //should be here; the element
+                                                      //in TempArray should be Array[--             count[TempArray[i]]]
+        cout<<endl;
+    }
+        
+}
+int main()
+{
+    int arr[]={7,3,8,9,6,1,8,1,2};
+    BucketSort<int>(arr,9,10);
+    for(int i=0;i<9;i++){
+        cout<<arr[i]<<endl;
+    }
+
+    return 0;
+}

@@ -1,0 +1,24 @@
+class NodeType{
+   int val;
+   NodeType* pre;
+   NodeType* next;
+}
+
+void insert_double(*NodeType head, int key){
+   NodeType* help=head;
+   NodeType* cur=head;
+   while(cur){
+      if(help->val<key && cur &&
+         cur->key>=key){
+         NodeType* temp=new NodeType(key);
+         help->next=temp;
+         temp->next=cur;
+         cur->next->pre=temp;
+         temp->pre=help;
+      }
+
+
+   }
+
+
+}

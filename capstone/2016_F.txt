@@ -1,0 +1,43 @@
+
+//quadratic probing:
+H+1^2, H+2^2, H+3^2
+//a[] is the hashtable;
+int hash(Entry x){
+    int hashcode=x%n;
+    int i=1;
+    int k=-1;
+    if(a[hashcode]==0)
+        return hashcode;
+    else{
+        while(k!=hashcode){
+          k=hashcode;
+          if(a[k]==0)
+             return k;
+       
+          k=(hashcode+i*i)%n;
+          i++;
+       }
+    } 
+   return k;
+}
+void hash(int a[], int x, int n){
+  int hashIndex=x%n;
+  int i=1;
+  while(a[hashIndex]!=0){
+      hashIndex+=i*i;
+      ++i;
+  }
+  if(hashIndex>n){
+    cout<<"table is full"<<endl;   //?????
+
+  }
+  else{
+    a[hashIndex]=x;
+   }
+}
+
+void printList(Node* root){
+   if(!root){  
+      printList(root->next);
+   }
+}

@@ -1,0 +1,38 @@
+416. Partition Equal Subset Sum
+Given a non-empty array containing only positive integers, find if the array can be partitioned into two subsets such that the sum of elements in both subsets is equal.
+
+// DFS time?    time not satisfy
+class Solution {
+public:
+    bool backtrack(vector<int>& nums, int start, int target) {
+        if (target <= 0) return target == 0;
+        for (int i = start; i < nums.size(); i++) 
+            if (backtrack(nums, i + 1, target - nums[i])) return true;
+        return false;
+    }
+    
+    bool canPartition(vector<int>& nums) {
+        int sum = accumulate(nums.begin(), nums.end(), 0);
+        return !(sum & 1) && backtrack(nums, 0, sum >> 1);
+    }
+};
+
+
+
+//dynamic :time=O(n)??
+class Solution {
+public:
+bool canPartition(vector<int>& nums) {
+    int sum = accumulate(nums.begin(), nums.end(), 0), target = sum >> 1;
+    if (sum & 1) return false;
+    vector<int> dp(target + 1, 0); //target 11
+    dp[0] = 1;
+    for(auto num : nums) {
+        for(int i = target; i >= num; i--){
+            cout<<i<<" "<<dp[i]<<" "<<i-num<<" "<<dp[i-num]<<endl;
+             dp[i] = dp[i] || dp[i - num];
+        }          
+    }       
+    return dp[target];
+}
+};

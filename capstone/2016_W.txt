@@ -1,0 +1,71 @@
+              find(Dstruct* ds, Value val)   delete(Dstruct* ds, Value val)     Insert(Dstruct ds, Value val)
+unsorted arr       w:O(n) b:O(1)                      w:O(n) b:O(1)                      w:O(1) b:O(1)
+sorted arr         w:O(log(n)) b:O(1)                 w:O(log(n)) b:O(1)                 w:O(log(n)) b:O(1)
+doubly-Linked      w:O(n) b:O(1)                      w:O(n) b:O(1)                      w:O(n) b:O(1)
+binary Search T    w:O(n) b:O(1)                      w:O(n) b:O(1)                      w:O(n) b:O(1)
+hash table         w:O(n) b:O(1)                      w:O(n) b:O(1)                      w:O(n) b:O(1)
+
+PS: hash table might has long chaining bucket as the result of the worst case;
+
+
+//implement a stack of integers using linked list
+//root is the top of the stack;
+//pop will make the stack go down, short;
+class Node{
+public:
+   int val;
+   Node* next;
+   Node(int v):val(v),next(null){};
+}
+
+class StackLinked{
+public:
+   Node* root;
+//   void initialize_to_empty();
+   StackLinked::StackLinked{this->root=null;}
+   void push(int val);
+   void pop();
+}
+
+//void StackLinked::inttialize_to_empty(){}, default constructor;
+void StackLinked::push(int val){
+if(this->root==null){
+    this->root=new Node(val);
+}
+else{
+  Node* temp=new Node(val);
+  temp->next=root;
+  root=temp;
+}
+}
+int pop(){
+if(!root){
+   Node* temp=root;
+   root=root->next;
+   delete(temp);
+  return root->val;
+}
+return INT_MIN;
+}
+
+
+
+
+struct tree_node{
+  char val;
+  CStreeNode* first_child;
+  CStreeNode* next_sibling;
+} ;
+typedef struct tree_node* tree_ptr;
+
+void postorder(tree_ptr p){
+
+
+
+}
+
+
+
+
+
+

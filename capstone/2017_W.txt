@@ -1,0 +1,54 @@
+struct TreeNode{
+int data;
+TreeNode* left;
+TreeNode* right;
+TreeNode(int v,TreeNode* l,TreeNode* r):data(v),left(l),right(r){}
+~TreeNode(){if(left) delete left; if(right) delete right}
+}
+
+struct ListNode{
+int value;
+ListNode* next;
+ListNode(int v, ListNode n):value(v),next(NULL){}
+~ListNode(){if(next) delete next}
+}
+
+ListNode* toList(TreeNode* root, ListNode* head, TreeNode* pre){
+     static TreeNode* pre=NULL;//only init once;
+     if(!root)
+        pre=root;
+        toList(root->left,head,pre);
+        if(!pre)
+           
+    
+}
+
+
+
+//queue
+#define N 100;
+class queue{
+   public:
+   bool ContainQueue(int v);
+   bool isEmpty();
+   booL isFull();
+    int arr[N];
+    int front=0;
+    int rear=0;
+    bool fullFlag=false;
+}
+
+  bool ContainQueue(int v){
+      for(int i=front;i<rear;i++)
+      {
+           if(arr[i]==v)
+             return true;
+      }
+      return false;
+  }
+  booL isFull(){
+      return fullFlag;
+ }
+  bool isEmpty(){
+      return front==rear && !isFull();
+ }

@@ -1,0 +1,67 @@
+//character data	
+struct TreeNode{
+    char cval;
+    TreeNode* left;
+    TreeNode* right;
+}
+
+int LeftCount(TreeNode *ptr){
+if(ptr==NULL) return 0;
+if(ptr->left==NULL && ptr->right==NULL) return 1;
+return LeftCount(ptr->left)+LeftCount(ptr->right);
+
+}
+
+int main()
+{
+    TreeNode* tn=new TreeNode(1);
+    
+    tn->left=new TreeNode(2);
+    tn->left->left=new TreeNode(3);
+    tn->left->right=new TreeNode(4);
+    tn->left->right->left=new TreeNode(5);
+    tn->right=new TreeNode(6);
+    tn->right->left=new TreeNode(7);
+    tn->right->right=new TreeNode(8);
+    tn->right->right->left=new TreeNode(9);
+    
+    cout<<LeftCount(tn);
+    return 0;
+}
+
+
+Node* reverseList(Node *root,int num)
+{
+    if(root){
+        Node* p = root;
+        Node* q = root;
+        Node* last = root;
+        int i=0;
+        while(i <(num-1) && q){
+            q = q->next;
+            i++;
+        }
+        while(q->next){
+            last = p;
+            p=p->next;
+            q=q->next;
+        }
+        /*now p is the head of last 'num' int */
+        /*reverse this sub list*/
+        Node *subJump = p->next;
+        Node *subKeeper = subJump->next;
+        p->next=NULL;
+        while(subKeeper){
+            subJump->next = p;
+            p=subJump;
+            subJump=subKeeper;
+            subKeeper=subKeeper->next;
+        }
+        if(subJump){
+            subJump->next=p;
+            p=subJump;
+        }
+        last->next = p;
+    }
+    return root;
+}

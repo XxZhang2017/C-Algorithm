@@ -1,0 +1,13 @@
+//create a banlanced binary sarch tree from a sorted array:
+
+//tips:root is the middle element of the array:
+
+TreeNode createBST(int arr[],int start, int end){
+   if(start>end) return null;
+   int mid=start+(end-start)/2;
+TreeNode root=new TreeNode(arr[mid]);
+
+   root->left=createBST(arr,start,mid-1);
+   root->right=createBST(arr,mid+1,end);
+   return root;
+}

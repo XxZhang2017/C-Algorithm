@@ -1,0 +1,50 @@
+/**
+ * Definition for binary tree
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class BSTIterator {
+public:
+    BSTIterator(TreeNode *root) {
+        while(root){
+            st.push(root);
+            root=root->left;
+        }
+       
+    }
+
+    /** @return whether we have a next smallest number */
+    bool hasNext() {
+        if(!st.empty()){
+            return true;
+            
+        }else{
+            return false;
+        }
+    }
+
+    /** @return the next smallest number */
+    int next() {
+        if(hasNext()){
+            TreeNode* top=st.top();
+            st.pop();
+            int reg=top->val;
+            TreeNode* next=top->right;
+            while(next){
+                st.push(next);
+                next=next->left;
+            }
+             
+            return reg;
+        }
+        return INT_MIN;
+
+    }
+    
+    private:
+    stack<TreeNode*> st;
+};

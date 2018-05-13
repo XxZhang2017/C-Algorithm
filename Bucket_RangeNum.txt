@@ -1,0 +1,52 @@
+#include <iostream>
+#include <cstdio>
+#include <cstdlib>
+#include <cmath>
+#include <cstring>
+using namespace std;
+struct linklist
+{
+    linklist *next;
+    int value;
+    linklist(int v,linklist *n):value(v),next(n){}
+    ~linklist() {if (next) delete next;}
+};
+inline int cmp(const void *a,const void *b)
+{
+    return *(int *)a-*(int *)b;
+}
+/*
+为了方便，我把A中元素加入桶中时是倒序放入的，而收集取出时也是倒序放入序列的，所以不违背稳定排序。
+*/
+void BucketSort(int *A,int *B,int N,int K)
+{
+    linklist *Bucket[101],*p;//建立桶
+    int i,j,k,M;
+    M=K/100;
+    memset(Bucket,0,sizeof(Bucket));
+    for (i=1;i<=N;i++)
+    {
+        k=A[i]/M; //把A中的每个元素按照的范围值放入对应桶中
+        Bucket[k]=new linklist(A[i],Bucket[k]);
+    }
+    for (k=j=0;k<=100;k++)
+    {
+        i=j;
+        for (p=Bucket[k];p;p=p->next)
+            B[++j]=p->value; //把桶中每个元素取出，排序并加入B
+        delete Bucket[k];
+        qsort(B+i+1,j-i,sizeof(B[0]),cmp);
+    }
+}
+int main()
+{
+    int *A,*B,N=100,K=10000,i;
+    A=new int[N+1];
+    B=new int[N+1];
+    for (i=1;i<=N;i++)
+        A[i]=rand()%K+1; //生成1..K的随机数
+    BucketSort(A,B,N,K);
+    for (i=1;i<=N;i++)
+        printf("%d ",B[i]);
+    return 0;
+}

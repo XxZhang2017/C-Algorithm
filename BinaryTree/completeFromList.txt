@@ -1,0 +1,48 @@
+//complete bst from its level order linked list Representation
+
+//tips:   queue--manage tree node to do level travesal
+          construct the node with the FIFO order and
+          loop linked list;
+
+// We are mainly given the level order in sequential
+access form. We know the head of the linked list is
+always the root of the tree. The idea is to do level
+order travesal of the partially built BST using queue
+and traverse the linked list at the same time.
+
+void convertList2Binary(ListNode* head, BinaryTreeNodde* &root){
+if(head==null){
+   root=null;
+   return;
+}
+   
+queue<BinaryTreeNode*> q;
+root=new BinaryTreeNode(head->data);
+q.push(root);
+head=head->next;
+
+while(head){
+BinaryTreeNode* parent=q.front();
+q.pop();
+
+parent=new BinaryTreeNode(head->val);
+BinaryTreeNode* leftNode=null, rightNode=null;
+leftNode=new BinaryTreeNode(head->val);
+head=head->next;
+q.push(leftNode);
+
+
+
+
+if(head){
+   rightNode=BinaryTreeNode(head->val);
+   q.push(rightNode);
+   head=head->next;
+}
+
+
+parent->left=leftNode;
+parent->right=rightNode;
+}
+
+}

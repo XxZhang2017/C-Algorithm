@@ -1,0 +1,18 @@
+
+思路: 从每一个节点单独开始记录路径的和, 最后结果即为从当前节点开始的路径的结果个数和从左右节点开始计数的结果个数.
+
+class Solution {  
+public:  
+    int DFS(TreeNode* root, int sum){  
+        if(!root) return 0;  
+        sum -= root->val;  
+        return !sum + DFS(root->left, sum) + DFS(root->right, sum);  //!sum, if
+//it equals target, then path num add 1, if not, then path num add 0;
+    }  
+      
+    int pathSum(TreeNode* root, int sum) {  
+        if(!root) return 0;  
+        int ans = pathSum(root->left, sum) + pathSum(root->right, sum);  
+        return DFS(root, sum) + ans;  
+    }  
+};  

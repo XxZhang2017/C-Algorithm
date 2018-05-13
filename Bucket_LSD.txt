@@ -1,0 +1,56 @@
+#include <iostream>
+#include <cstdio>
+#include <cstdlib>
+#include <cmath>
+#include <cstring>
+using namespace std;
+struct data
+{
+    int key[2];
+};
+struct linklist
+{
+    linklist *next;
+    data value;
+    linklist(data v,linklist *n):value(v),next(n){}
+    ~linklist() {if (next) delete next;}
+};
+void BucketSort(data *A,int N,int K,int y)
+{
+    linklist *Bucket[101],*p;//建立桶
+    int i,j,k,M;
+    M=K/100+1;
+    memset(Bucket,0,sizeof(Bucket));
+    for (i=1;i<=N;i++)
+    {
+        k=A[i].key[y]/M; //把A中的每个元素按照的范围值放入对应桶中
+        Bucket[k]=new linklist(A[i],Bucket[k]);
+    }
+    for (k=j=0;k<=100;k++)
+    {
+        for (p=Bucket[k];p;p=p->next) j++;
+        for (p=Bucket[k],i=1;p;p=p->next,i++)
+            A[j-i+1]=p->value; //把桶中每个元素取出
+        delete Bucket[k];
+    }
+}
+void RadixSort(data *A,int N,int K)
+{
+    for (int j=1;j>=0;j--) //从低优先到高优先 LSD
+        BucketSort(A,N,K,j);
+}
+int main()
+{
+    int N=100,K=1000,i;
+    data *A=new data[N+1];
+    for (i=1;i<=N;i++)
+    {
+        A[i].key[0]=rand()%K+1;
+        A[i].key[1]=rand()%K+1;
+    }
+    RadixSort(A,N,K);
+    for (i=1;i<=N;i++)
+        printf("(%d,%d) ",A[i].key[0],A[i].key[1]);
+    printf("\n");
+    return 0;
+}

@@ -1,0 +1,95 @@
+//avoid overflow
+int mid = min+(max-min)/2
+
+
+
+//version:
+//right=num.size();
+//mid=right;
+//while(left<right)
+int find(vector<int>& nums, int target) {
+    int left = 0, right = nums.size();
+    while (left < right) {
+        int mid = left + (right - left) / 2;
+        if (nums[mid] == target) return mid;
+        else if (nums[mid] < target) left = mid + 1;
+        else right = mid;
+    }
+    return -1;
+}
+
+//version:
+//right=nums.size()-1;
+//mid=right-1 || mid=left+1;
+//while(left<=right)
+int find(vector<int>& nums, int target) {
+    int left = 0, right = nums.size()-1;
+    while (left <= right) {
+        int mid = left + (right - left) / 2;
+        if (nums[mid] == target) return mid;
+        else if (nums[mid] < target) left = mid + 1;
+        else right = mid;
+    }
+    return -1;
+}
+
+
+
+
+#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+/*int find(vector<int>& nums, int target) {
+    int left = 0, right = nums.size();
+    int ct=0;
+    while (left < right) {
+        int mid = left + (right - left) / 2;
+        cout<<"left"<<" "<<left<<"right"<<" "<<right<<" "<<"mid"<<" "<<mid<<endl;
+        if (nums[mid] == target) return mid;
+        else if (nums[mid] < target) left = mid + 1;
+        else right = mid;
+        
+        ct++;
+        if(ct==40){
+            cout<<"loop";
+            return -2;
+        }
+    }
+    return -1;
+}*/
+int find(vector<int>& nums, int target) {
+ 
+    int left = 0, right = nums.size()-1;
+    int ct=0;
+    while (left <= right) {
+          
+        int mid = left + (right - left) / 2;
+         cout<<"left"<<" "<<left<<"right"<<" "<<right<<" "<<"mid"<<" "<<mid<<endl;
+        if (nums[mid] == target) return mid;
+        else if (nums[mid] < target) left = mid + 1;
+        else right = mid-1;
+         ct++;
+        if(ct==40){
+            cout<<"loop";
+            return -2;
+    
+        }
+    }
+    return -1;
+}
+int main()
+{
+    vector<int> v;
+    v.push_back(2);
+     v.push_back(21);
+    v.push_back(3);
+    v.push_back(20);
+    v.push_back(12);
+    std::sort(v.begin(),v.end());
+    
+    cout<<find(v,20);
+
+    return 0;
+}

@@ -1,0 +1,14 @@
+public void bubbleSort(int arr[]) {
+    boolean didSwap;
+    for(int i = 0, len = arr.length; i < len - 1; i++) {
+        didSwap = false;
+        for(int j = 0; j < len - i - 1; j++) {
+            if(arr[j + 1] < arr[j]) {
+                swap(arr, j, j + 1);
+                didSwap = true;
+            }
+        }
+        if(didSwap == false)
+            return;
+    }    
+}

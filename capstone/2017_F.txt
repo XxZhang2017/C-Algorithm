@@ -1,0 +1,80 @@
+//return the num of nodes in the tree that have a right child, but no left child
+
+struct TreeNode{
+int val;
+TreeNode left;
+TreeNode right;
+};
+int RightNoLeft(TreeNode *ptr){
+if(ptr==NULL) return 0;
+if(ptr->right && !ptr->left) {
+    return RightNoLeft(ptr->right)+1;
+}
+if(ptr->left && !ptr->right) {
+    return RightNoLeft(ptr->left);
+}
+if(ptr->left && ptr->right){ 
+    return RightNoLeft(ptr->left) + RightNoLeft(ptr->right);
+}
+return 0;
+}
+
+//debug
+class TreeNode{
+    public:
+int val;
+TreeNode* left;
+TreeNode* right;
+TreeNode(int v):val(v){};
+};
+
+int RightNoLeft(TreeNode *ptr){
+if(ptr==NULL) return 0;
+if(ptr->right && !ptr->left) {
+    return RightNoLeft(ptr->right)+1;
+}
+if(ptr->left && !ptr->right) {
+    return RightNoLeft(ptr->left);
+}
+if(ptr->left && ptr->right){ 
+    return RightNoLeft(ptr->left) + RightNoLeft(ptr->right);
+}
+return 0;
+}
+
+int main()
+{
+    TreeNode* tn=new TreeNode(1);
+    
+    tn->left=new TreeNode(2);
+    tn->left->left=new TreeNode(3);
+    tn->left->right=new TreeNode(4);
+    tn->left->right->left=new TreeNode(5);
+    tn->right=new TreeNode(6);
+    tn->right->left=new TreeNode(7);
+    tn->right->right=new TreeNode(8);
+    tn->right->right->left=new TreeNode(9);
+    
+    cout<<RightNoLeft(tn);
+    return 0;
+}
+
+
+
+//partition the arr into positive and negative
+void negpospartition(float arr[], int n){
+  int neg=0;
+  int pos=n-1;
+
+  while(neg<pos){
+    while(arr[neg]<0){
+        neg++;
+    }
+    while(arr[pos]>0){
+        pos--;
+    }
+    if(neg>=pos)break;
+    swap(arr[neg],arr[pos]);
+  }  
+}
+//function change arr[] will change arr value;

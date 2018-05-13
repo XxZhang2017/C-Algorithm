@@ -1,0 +1,146 @@
+The original problem statement is equivalent to:
+Find a subset of nums that need to be positive, and the rest of them negative, such that the sum is equal to target
+
+  sum(P) - sum(N) = target
+sum(P) + sum(N) + sum(P) - sum(N) = target + sum(P) + sum(N)
+                       2 * sum(P) = target + sum(nums)
+
+Find a subset P of nums such that sum(P) = (target + sum(nums)) / 2
+
+Note that the above formula has proved that target + sum(nums) must be even
+
+
+yuxiangmusic
+yuxiangmusic
+ 1133
+Last Edit: a day ago
+
+The recursive solution is very slow, because its runtime is exponential
+
+The original problem statement is equivalent to:
+Find a subset of nums that need to be positive, and the rest of them negative, such that the sum is equal to target
+
+Let P be the positive subset and N be the negative subset
+For example:
+Given nums = [1, 2, 3, 4, 5] and target = 3 then one possible solution is +1-2+3-4+5 = 3
+Here positive subset is P = [1, 3, 5] and negative subset is N = [2, 4]
+
+Then let’s see how this can be converted to a subset sum problem:
+
+                  sum(P) - sum(N) = target
+sum(P) + sum(N) + sum(P) - sum(N) = target + sum(P) + sum(N)
+                       2 * sum(P) = target + sum(nums)
+So the original problem has been converted to a subset sum problem as follows:
+Find a subset P of nums such that sum(P) = (target + sum(nums)) / 2
+
+Note that the above formula has proved that target + sum(nums) must be even
+We can use that fact to quickly identify inputs that do not have a solution (Thanks to @BrunoDeNadaiSarnaglia for the suggestion)
+For detailed explanation on how to solve subset sum problem, you may refer to Partition Equal Subset Sum
+
+
+    public int findTargetSumWays(int[] nums, int s) {
+        int sum = 0;
+        for (int n : nums)
+            sum += n;
+        return sum < s || (s + sum) % 2 > 0 ? 0 : subsetSum(nums, (s + sum) >>> 1); 
+    }   
+
+    public int subsetSum(int[] nums, int s) {
+        int[] dp = new int[s + 1]; 
+        dp[0] = 1;
+        for (int n : nums)
+            for (int i = s; i >= n; i--)
+                dp[i] += dp[i - n]; 
+        return dp[s];
+    } 
+Here is C++ solution (3 ms)
+
+class Solution {
+public:
+    int findTargetSumWays(vector<int>& nums, int s) {
+        int sum = accumulate(nums.begin(), nums.end(), 0);
+        return sum < s || (s + sum) & 1 ? 0 : subsetSum(nums, (s + sum) >> 1); 
+    }   
+
+    int subsetSum(vector<int>& nums, int s) {
+        int dp[s + 1] = { 0 };
+        dp[0] = 1;
+        for (int n : nums)
+            for (int i = s; i >= n; i--)
+                dp[i] += dp[i - n];
+        return dp[s];
+    }
+};
+
+dp:
+const int n=nums.size();
+int sum=std::accumulate(nums.begin(),nums.end(),0));
+if(sum<S) return 0;
+int offset=sum;
+vector<vector<int>> ways(n+1.vector<int>(sum+offset+1,0));
+ways[0][offset]=1;
+for(int i=0;i<n;i++){
+   for(int j=nums[i];j<2*sum+1-nums[i]; j++){
+     if(ways[i][j]){  //我觉得优化了
+      ways[i+1][j+nums[j]]+=ways[i][j];
+       ways[i+1][j-nums[i]]+=ways[i][j];
+
+     }
+
+}
+return ways.back()[S+offset];
+}
+
+
+two di vector init:
+vector<vector<int>> ways(n+1,vector<int>(sum+offset+1,0));
+
+This is a pretty easy problem. Just do DFS and try both “+” and “-” at every position. Easy version of Expression Add Operators https://leetcode.com/problems/expression-add-operators/
+
+public class Solution {
+    int result = 0;
+	
+    public int findTargetSumWays(int[] nums, int S) {
+        if (nums == null || nums.length == 0) return result;
+        helper(nums, S, 0, 0);
+        return result;
+    }
+    
+    public void helper(int[] nums, int target, int pos, long eval){
+        if (pos == nums.length) {
+            if (target == eval) result++;
+            return;
+        }
+        helper(nums, target, pos + 1, eval + nums[pos]);
+        helper(nums, target, pos + 1, eval - nums[pos]);
+    }
+}
+Optimization: The idea is If the sum of all elements left is smaller than absolute value of target, there will be no answer following the current path. Thus we can return.
+
+public class Solution {
+    int result = 0;
+	
+    public int findTargetSumWays(int[] nums, int S) {
+        if(nums == null || nums.length == 0) return result;
+        
+        int n = nums.length;
+        int[] sums = new int[n];
+        sums[n - 1] = nums[n - 1];
+        for (int i = n - 2; i >= 0; i--)
+            sums[i] = sums[i + 1] + nums[i];
+        
+        helper(nums, sums, S, 0);
+        return result;
+    }
+    public void helper(int[] nums, int[] sums, int target, int pos){
+        if(pos == nums.length){
+            if(target == 0) result++;
+            return;
+        }
+        
+        if (sums[pos] < Math.abs(target)) return;
+        
+        helper(nums, sums, target + nums[pos], pos + 1);
+        helper(nums, sums, target - nums[pos], pos + 1);
+    }
+}

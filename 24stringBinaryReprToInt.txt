@@ -1,0 +1,44 @@
+String of Binary num repr to int.
+The num of digits are 3 bits.
+Typically using for color.
+
+#include <iostream>
+#include <vector>
+#include <cmath>
+using namespace std;
+vector<int> convertToInt(string str);
+vector<int> convertToInt(string str){
+    int i,j;
+    vector<int> reg;
+    int digit;
+    int count=3;
+    j=str.length()-1;
+    while(count){
+        digit=0;
+        for(i=0;i<8;i++,j--){
+        digit+=(str[j]-'0')*pow(2,i);
+    }
+    cout<<"the digit"<<" ";
+    cout<<count<<" ";
+    cout<<"is"<<" ";
+    cout<<digit<<endl;
+     reg.push_back(digit);
+     count--;
+    }
+    return reg;
+  
+}
+void printV(vector<int> v){
+    for(int k=0;k<v.size();k++){
+        cout<<v[k]<<" ";
+    }
+    cout<<endl;
+}
+int main()
+{
+  string test="000001000000010000000100";
+  vector<int> vec=convertToInt(test);
+  printV(vec);
+
+    return 0;
+}

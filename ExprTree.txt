@@ -1,0 +1,82 @@
+#include <iostream>
+#include <stack>
+
+using namespace std;
+
+
+struct et
+{
+    char value;
+    et* left, *right;
+};
+
+bool isOperator(char c);
+void inorder(et* t);
+et* newNode(int v);
+et* constructTree(char postfix[]);
+
+//problem: preOrder inOrder confused
+void inorder(et* t){
+if(t!=nullptr){
+   inorder(t->left);
+   std::cout<< t->value;
+   
+   inorder(t->right);
+}
+}
+
+//problem: int to char 直接赋值;
+//how new struct
+et* newNode(int v){
+  et* t=new et;
+  t->value=char(v);
+  t->left=t->right=nullptr;
+  return t;
+
+}
+
+
+//change to string?
+//plus input?
+
+//he use strlen(postfix)? what indicate the 
+//end in strlen function?
+//The first pop is right child
+et* constructTree(char postfix[]){
+int i=0;
+stack<et *>st;
+
+while(postfix[i]!='\0'){
+     //regrex match num 1 digit
+      if(postfix[i] !='+'||'-'||'*'||'/'){
+             et* node=new et;
+           node->value=postfix[i];
+           node->left=node->right=nullptr;
+           st.push(node);
+
+      }
+      if(postfix[i] =='+'||'-'||'*'||'/'){
+             et* node=newNode(postfix[i]);
+                 
+            
+            et* right=st.top();
+            st.pop();
+            
+            et* left=st.top();
+            st.pop();
+            
+            node->left=left;
+            node->right=right;
+          
+            st.push(node);
+      }
+}
+
+}
+
+int main(){
+char expr[] = "ab+ef*g*-";
+et* root=constructTree(expr);
+inorder(root);
+return 0;
+}
